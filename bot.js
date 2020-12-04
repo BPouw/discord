@@ -15,6 +15,9 @@ client.on("message", msg => {
         msg.react("❤️")
         msg.react("🐉")
     }
+        if (msg.content == "race check") {
+        msg.reply(":monkasteer: :monkasteer: :monkasteer: :monkasteer:")
+    }
 })
 
 
