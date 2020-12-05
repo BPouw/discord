@@ -16,7 +16,7 @@ client.on("message", msg => {
         msg.react("🐉")
     }
         if (msg.content == "race check") {
-        msg.reply("<a:monkasteer:784531240858419240> <a:monkasteer:784531240858419240> <a:monkasteer:784531240858419240> <a:monkasteer:784531240858419240>")
+        msg.channel.send("<a:monkasteer:784531240858419240> <a:monkasteer:784531240858419240> <a:monkasteer:784531240858419240>")
     }
 })
 
