@@ -10,6 +10,7 @@ module.exports = {
 	name: Events.MessageCreate,
 	async execute(interaction) {
 		if (interaction.guild) return;
+    if (interaction.content.includes('create image of')) return;
         const response = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: "The following is a conversation with a wise dragon. The dragon talks like a dragon and is wise, mystical, and ancient \nHuman: " + interaction.content + "\n",
