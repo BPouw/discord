@@ -1,6 +1,6 @@
 # Discord dragon bot
 
-This is a small hobby project created using node and discord.js.
+This is a small hobby project created using node, discord.js and openai.
 
 Created by Boris Pouw for the dragon energy discord server.
 
