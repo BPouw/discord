@@ -24,6 +24,7 @@ module.exports = {
             size: "1024x1024",
           });
           image_url = response.data.data[0].url;
-        await interaction.editReply(subject + " " + image_url)
+          const message = await interaction.fetchReply();
+          await message.reply(image_url);
 	},
 };
