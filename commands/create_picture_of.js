@@ -1,16 +1,11 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { Configuration, OpenAIApi } = require("openai");
-
-const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
-  });
-const openai = new OpenAIApi(configuration);
+const openai = require('../data/openai_client');
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('create_picture_of')
 		.setDescription('Give the dragon a description of a picture you want him to create')
-        .addStringOption(option => 
+        .addStringOption(option =>
             option
                 .setName('subject')
                 .setDescription('What will the dragon create?')
@@ -18,12 +13,8 @@ module.exports = {
 	async execute(interaction) {
         const subject = interaction.options.getString('subject')
         await interaction.reply(subject)
-        const response = await openai.createImage({
-            prompt: subject,
-            n: 1,
-            size: "1024x1024",
-          });
-          image_url = response.data.data[0].url;
+        const response = await openai.createPicture(subject)
+          const image_url = response.data[0].url;
           const message = await interaction.fetchReply();
           await message.reply(image_url);
 	},

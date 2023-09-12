@@ -5,6 +5,8 @@ module.exports = {
 		.setName('joined_at')
 		.setDescription('The dragon will tell you how long you have been a part of this server'),
 	async execute(interaction) {
-		await interaction.reply(`The user ${interaction.user.username.toLowerCase()} has joined us on ${interaction.member.joinedAt.toLocaleDateString("nl-NL")}.`)
+		await interaction.reply(
+			`The user ${interaction.user.username.toLowerCase()} has joined us on ${interaction.member.joinedAt.toLocaleDateString("nl-NL"
+			)}.`);
 	},
 };

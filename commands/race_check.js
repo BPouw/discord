@@ -5,6 +5,6 @@ module.exports = {
 		.setName('race_check')
 		.setDescription('Are we going racing?'),
 	async execute(interaction) {
-		await interaction.reply("<a:monkasteer:784531240858419240> <a:monkasteer:784531240858419240> <a:monkasteer:784531240858419240>")
+		await interaction.reply("<a:monkasteer:784531240858419240> <a:monkasteer:784531240858419240> <a:monkasteer:784531240858419240>");
 	},
 };
