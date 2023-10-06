@@ -1,4 +1,5 @@
 const { OpenAI} = require('openai');
+const fs = require('fs');
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY, // defaults to process.env["OPENAI_API_KEY"]
@@ -55,8 +56,17 @@ async function createPicture(prompt) {
     })
 }
 
+async function speechToText(filePath) {
+    return openai.audio.transcriptions.create({
+        file: fs.createReadStream(filePath),
+        model: "whisper-1",
+        response_format: "text",
+    })
+}
+
 module.exports = {
     createDragonResponse,
     createPicture,
     createPouwResponse,
+    speechToText
 };
