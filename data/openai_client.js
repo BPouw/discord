@@ -1,9 +1,12 @@
 const { OpenAI} = require('openai');
 const fs = require('fs');
+const {resolve} = require("path");
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY, // defaults to process.env["OPENAI_API_KEY"]
 });
+
+const speechFile = resolve("./speech.mp3");
 
 async function createDragonResponse(prompt) {
     return openai.chat.completions.create({
@@ -64,9 +67,20 @@ async function speechToText(filePath) {
     })
 }
 
+async function textToSpeech(prompt) {
+    const mp3 = await openai.audio.speech.create({
+        model: "tts-1",
+        voice: "alloy",
+        input: prompt,
+    });
+    const buffer = Buffer.from(await mp3.arrayBuffer());
+    await fs.promises.writeFile(speechFile, buffer);
+}
+
 module.exports = {
     createDragonResponse,
     createPicture,
     createPouwResponse,
-    speechToText
+    speechToText,
+    textToSpeech,
 };

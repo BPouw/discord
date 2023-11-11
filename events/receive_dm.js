@@ -30,15 +30,25 @@ async function handleUserResponse(interaction, responseFunction) {
             const filepath = 'data/audiofile.ogg';
             await ogg.downloadAndSaveOggFile(attachmentUrl, filepath);
             const transcription = await openai.speechToText(filepath);
-            return await responseFunction(transcription);
+            await openai.textToSpeech(transcription);
+            return "voice"
         }
     }
 }
 
 async function sendResponseViaDM(interaction, message) {
     if (message) {
-        await interaction.author.send(message.choices[0].message.content).catch(() => {
-            console.log('Not authorized to DM this user');
-        });
+        if(message === "voice") {
+            await interaction.author.send({files:
+                [
+                    "data/speech.mp3"
+                ]}).catch(() => {
+                console.log('Not authorized to DM this user');
+            });
+        } else {
+            await interaction.author.send(message.choices[0].message.content).catch(() => {
+                console.log('Not authorized to DM this user');
+            });
+        }
     }
 }
