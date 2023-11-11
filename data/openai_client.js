@@ -77,10 +77,31 @@ async function textToSpeech(prompt) {
     await fs.promises.writeFile(speechFile, buffer);
 }
 
+async function vision(prompt, imageUrl) {
+    return openai.chat.completions.create({
+        model: "gpt-4-vision-preview",
+        messages: [
+            {
+                role: "user",
+                content: [
+                    {type: "text", text: "What’s in this image?"},
+                    {
+                        type: "image_url",
+                        image_url: {
+                            "url": imageUrl,
+                        },
+                    },
+                ],
+            },
+        ],
+    });
+}
+
 module.exports = {
     createDragonResponse,
     createPicture,
     createPouwResponse,
     speechToText,
     textToSpeech,
+    vision,
 };

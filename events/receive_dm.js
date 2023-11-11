@@ -20,7 +20,7 @@ module.exports = {
 };
 
 async function handleUserResponse(interaction, responseFunction) {
-    if (interaction.content) {
+    if (interaction.content && !interaction.attachments) {
         return await responseFunction(interaction.content);
     }
 
@@ -33,7 +33,17 @@ async function handleUserResponse(interaction, responseFunction) {
             await openai.textToSpeech(transcription);
             return "voice"
         }
+
+        if (attachment.contentType === 'png') {
+            if(interaction.content) {
+                openai.vision(interaction.content, attachment.url)
+            } else {
+                openai.vision("What’s in this image?", attachment.url)
+            }
+        }
     }
+
+    return "Non supported document type"
 }
 
 async function sendResponseViaDM(interaction, message) {
