@@ -70,7 +70,7 @@ async function speechToText(filePath) {
 async function textToSpeech(prompt) {
     const mp3 = await openai.audio.speech.create({
         model: "tts-1",
-        voice: "alloy",
+        voice: "nova",
         input: prompt,
     });
     const buffer = Buffer.from(await mp3.arrayBuffer());
