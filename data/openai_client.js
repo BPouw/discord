@@ -6,7 +6,7 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY, // defaults to process.env["OPENAI_API_KEY"]
 });
 
-const speechFile = resolve("./speech.mp3");
+const speechFile = resolve("./data/speech.mp3");
 
 async function createDragonResponse(prompt) {
     return openai.chat.completions.create({
@@ -84,7 +84,7 @@ async function vision(prompt, imageUrl) {
             {
                 role: "user",
                 content: [
-                    {type: "text", text: "What’s in this image?"},
+                    {type: "text", text: prompt},
                     {
                         type: "image_url",
                         image_url: {

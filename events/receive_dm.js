@@ -27,18 +27,19 @@ async function handleUserResponse(interaction, responseFunction) {
     for (const [attachmentId, attachment] of interaction.attachments) {
         if (attachment.contentType === 'audio/ogg') {
             const attachmentUrl = attachment.url;
-            const filepath = 'data/audiofile.ogg';
+            const filepath = './data/audiofile.ogg';
             await ogg.downloadAndSaveOggFile(attachmentUrl, filepath);
             const transcription = await openai.speechToText(filepath);
-            await openai.textToSpeech(transcription);
+            const response = await openai.createPouwResponse(transcription.toString());
+            await openai.textToSpeech(response.choices[0].message.content);
             return "voice"
         }
 
-        if (attachment.contentType === 'png') {
+        if (attachment.contentType.includes('image')) {
             if(interaction.content) {
-                openai.vision(interaction.content, attachment.url)
+                return openai.vision(interaction.content, attachment.url);
             } else {
-                openai.vision("What’s in this image?", attachment.url)
+                return openai.vision("What’s in this image?", attachment.url)
             }
         }
     }
