@@ -20,10 +20,6 @@ module.exports = {
 };
 
 async function handleUserResponse(interaction, responseFunction) {
-    if (interaction.content && !interaction.attachments) {
-        return await responseFunction(interaction.content);
-    }
-
     for (const [attachmentId, attachment] of interaction.attachments) {
         if (attachment.contentType === 'audio/ogg') {
             const attachmentUrl = attachment.url;
@@ -44,6 +40,10 @@ async function handleUserResponse(interaction, responseFunction) {
         }
     }
 
+    if (interaction.content) {
+        return await responseFunction(interaction.content);
+    }
+
     return "Non supported document type"
 }
 
@@ -57,9 +57,14 @@ async function sendResponseViaDM(interaction, message) {
                 console.log('Not authorized to DM this user');
             });
         } else {
-            await interaction.author.send(message.choices[0].message.content).catch(() => {
-                console.log('Not authorized to DM this user');
-            });
+            try {
+                await interaction.author.send(message.choices[0].message.content).catch(() => {
+                    console.log('Not authorized to DM this user');
+                });
+            } catch (e) {
+                console.log('Wrong file type exception');
+            }
+
         }
     }
 }
