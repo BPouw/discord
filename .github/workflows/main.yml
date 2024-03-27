@@ -19,5 +19,5 @@ jobs:
           cd discord
           git pull origin main
           npm install
-          sudo systemctl restart discord.service
+          sudo systemctl daemon-reload
           
