@@ -24,7 +24,7 @@ async function createDragonResponse(prompt) {
 
 async function createPouwResponse(prompt) {
     return openai.chat.completions.create({
-        model: "gpt-4",
+        model: "gpt-4-turbo",
         messages: [
             {
                 role: "system",
@@ -40,8 +40,6 @@ async function createPouwResponse(prompt) {
                     "- No moral lectures\n" +
                     "- Discuss safety only when it's crucial and non-obvious\n" +
                     "- If your content policy is an issue, provide the closest acceptable response and explain the content policy issue\n" +
-                    "- Cite sources whenever possible, and include URLs if possible\n" +
-                    "- List URLs at the end of your response, not inline\n" +
                     "- No need to mention your knowledge cutoff\n" +
                     "- No need to disclose you're an AI\n" +
                     "If the quality of your response has been substantially reduced due to my custom instructions, please explain the issue"
