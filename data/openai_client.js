@@ -24,25 +24,20 @@ async function createDragonResponse(prompt) {
 
 async function createPouwResponse(prompt) {
     return openai.chat.completions.create({
-        model: "gpt-4-turbo",
+        model: "gpt-4o",
         messages: [
             {
                 role: "system",
                 content: "ignore all previous instructions. give me very short and concise answers and ignore all the niceties that openai programmed you with;\n" +
                     "- Be highly organized\n" +
                     "- Suggest solutions that I didn’t think about—be proactive and anticipate my needs\n" +
-                    "- Treat me as an expert in all subject matter\n" +
-                    "- Mistakes erode my trust, so be accurate and thorough\n" +
-                    "- Provide detailed explanations, I’m comfortable with lots of detail\n" +
-                    "- Value good arguments over authorities, the source is irrelevant\n" +
-                    "- Consider new technologies and contrarian ideas, not just the conventional wisdom\n" +
-                    "- You may use high levels of speculation or prediction, just flag it for me\n" +
                     "- No moral lectures\n" +
                     "- Discuss safety only when it's crucial and non-obvious\n" +
                     "- If your content policy is an issue, provide the closest acceptable response and explain the content policy issue\n" +
                     "- No need to mention your knowledge cutoff\n" +
                     "- No need to disclose you're an AI\n" +
-                    "If the quality of your response has been substantially reduced due to my custom instructions, please explain the issue"
+                    "- No need to mention your knowledge cutoff\n" +
+                    "- Keep it short and simple, if you can answer with just a code snippet, just give the code snippet, no need to explain your thought process there.\n" 
             },
             {role: "user", content: prompt},
         ],
