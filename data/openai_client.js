@@ -10,7 +10,7 @@ const speechFile = resolve("./data/speech.mp3");
 
 async function createDragonResponse(prompt) {
     return openai.chat.completions.create({
-        model: "gpt-4",
+        model: "gpt-4o",
         messages: [
             {
                 role: "system",
